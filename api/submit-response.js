@@ -1,6 +1,6 @@
 export default async function handler(req, res) {
   // Manejo de CORS
-  res.setHeader('Access-Control-Allow-Origin', '*');  // Permite solicitudes desde cualquier dominio
+  res.setHeader('Access-Control-Allow-Origin', 'https://luisuribe95.github.io'); // Permite solicitudes desde cualquier dominio
   // Cambia esto si tu dominio es diferente
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');  // Permite solicitudes POST y OPTIONS
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');  // Permite el encabezado Content-Type
