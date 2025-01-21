@@ -1,5 +1,5 @@
 export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', 'https://date-flame.vercel.app'); // Reemplaza con tu dominio si es necesario
+  res.setHeader('Access-Control-Allow-Origin', 'https://luisuribe95.github.io'); // Cambia esto si tu dominio de GitHub Pages es diferente
   res.setHeader('Access-Control-Allow-Methods', 'POST'); // Asegura que se permitan solicitudes POST
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type'); // Permite el encabezado Content-Type
   if (req.method === 'POST') {
