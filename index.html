@@ -190,11 +190,29 @@
         };
 
         // Manejar las respuestas
-        function sendResponse(answer) {
+        async function sendResponse(answer) {
             const question = document.getElementById("question");
             const response = document.getElementById("response");
             const responseText = document.getElementById("responseText");
+            const data = { response };
 
+    try {
+      const res = await fetch('https://your-vercel-project.vercel.app/api/submit-response', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (res.ok) {
+        alert('Respuesta registrada correctamente');
+      } else {
+        alert('Hubo un error al registrar la respuesta');
+      }
+    } catch (error) {
+      alert('Error de conexión');
+    }
             // Mostrar los emojis según la respuesta
             if (answer === "Sí") {
                 responseText.textContent = "¿Te parece si paso por ti a las 7-7:30? ❤️";
