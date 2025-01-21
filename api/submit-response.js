@@ -1,13 +1,14 @@
 export default async function handler(req, res) {
-  // Asegúrate de permitir solicitudes desde tu dominio de GitHub Pages
-  res.setHeader('Access-Control-Allow-Origin', 'https://luisuribe95.github.io');  // Cambia esto si tu dominio es diferente
-  res.setHeader('Access-Control-Allow-Methods', 'POST');  // Permite solo solicitudes POST
+  // Manejo de CORS
+  res.setHeader('Access-Control-Allow-Origin', '*');  // Permite solicitudes desde cualquier dominio
+  // Cambia esto si tu dominio es diferente
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');  // Permite solicitudes POST y OPTIONS
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');  // Permite el encabezado Content-Type
   res.setHeader('Access-Control-Allow-Credentials', 'true');  // Permite las credenciales, si es necesario
-  
-  // Si la solicitud es un "preflight" (OPTIONS), responde con un código 200 para permitir la solicitud
+
+  // Si la solicitud es OPTIONS, responde sin procesar nada más
   if (req.method === 'OPTIONS') {
-      return res.status(200).end();
+    return res.status(200).end();  // Responde a las solicitudes preflight con un status 200
   }
 
   // Verifica si el método es POST

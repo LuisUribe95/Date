@@ -191,56 +191,51 @@
 
         // Manejar las respuestas
         async function sendResponse(answer) {
-            const question = document.getElementById("question");
-            const response = document.getElementById("response");
-            const responseText = document.getElementById("responseText");
-            const data = { response: answer };
+    const question = document.getElementById("question");
+    const response = document.getElementById("response");
+    const responseText = document.getElementById("responseText");
+    const data = { response: answer };
 
-            try {
-        const res = await fetch('https://date-flame.vercel.app//api/submit-response', {
+    try {
+        const res = await fetch('https://date-flame.vercel.app/api/submit-response', {
             method: 'POST',
-            mode: 'no-cors',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data),
         });
 
-        const responseData = await res.json(); // Obtener la respuesta del servidor
-        console.log(responseData); // Verificar qué respuesta devuelve el servidor
-
         if (res.ok) {
+            const responseData = await res.json(); // Obtener la respuesta del servidor
+            console.log(responseData); // Verificar qué respuesta devuelve el servidor
             alert('Respuesta registrada correctamente');
         } else {
             alert('Hubo un error al registrar la respuesta');
         }
     } catch (error) {
+        console.error(error); // Para depuración
         alert('Error de conexión');
     }
-            // Mostrar los emojis según la respuesta
-            if (answer === "Sí") {
-                responseText.textContent = "¿Te parece si paso por ti a las 7-7:30? ❤️";
-               
-                document.getElementById("second-button").style.display = "block";  // Mostrar el segundo botón
-                document.getElementById('second-response').style.display = 'none';  // Asegurarse de que no aparezca antes de tiempo
-                showEmojis("❤️", "yes");
-            } else {
-                responseText.textContent = "Bueno, se intentó... 😢";
-            
-                showEmojis("😢", "no");
-            }
 
-            
+    // Mostrar los emojis según la respuesta
+    if (answer === "Sí") {
+        responseText.textContent = "¿Te parece si paso por ti a las 7-7:30? ❤️";
+        document.getElementById("second-button").style.display = "block";  // Mostrar el segundo botón
+        document.getElementById('second-response').style.display = 'none';  // Asegurarse de que no aparezca antes de tiempo
+        showEmojis("❤️", "yes");
+    } else {
+        responseText.textContent = "Bueno, se intentó... 😢";
+        showEmojis("😢", "no");
+    }
 
-            // Transición de pregunta a respuesta
-            gsap.to("#question", { opacity: 0, duration: 1, onComplete: () => {
-                question.style.display = "none";
-                response.style.display = "block";
-                gsap.fromTo("#response", { opacity: 0 }, { opacity: 1, duration: 1 });
-            }});
+    // Transición de pregunta a respuesta
+    gsap.to("#question", { opacity: 0, duration: 1, onComplete: () => {
+        question.style.display = "none";
+        response.style.display = "block";
+        gsap.fromTo("#response", { opacity: 0 }, { opacity: 1, duration: 1 });
+    }});
+}
 
-           
-        }
 
         function sendAnotherResponse() {
             // Ocultar el botón
