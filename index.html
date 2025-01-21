@@ -199,6 +199,7 @@
             try {
         const res = await fetch('https://your-project-name.vercel.app/api/submit-response', {
             method: 'POST',
+            mode: 'no-cors',
             headers: {
                 'Content-Type': 'application/json',
             },
