@@ -196,22 +196,25 @@
             const responseText = document.getElementById("responseText");
             const data = { response: answer };
 
-    try {
-      const res = await fetch('https://date-flame.vercel.app//api/submit-response', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
+            try {
+        const res = await fetch('https://your-project-name.vercel.app/api/submit-response', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
 
-      if (res.ok) {
-        alert('Respuesta registrada correctamente');
-      } else {
-        alert('Hubo un error al registrar la respuesta');
-      }
+        const responseData = await res.json(); // Obtener la respuesta del servidor
+        console.log(responseData); // Verificar qué respuesta devuelve el servidor
+
+        if (res.ok) {
+            alert('Respuesta registrada correctamente');
+        } else {
+            alert('Hubo un error al registrar la respuesta');
+        }
     } catch (error) {
-      alert('Error de conexión');
+        alert('Error de conexión');
     }
             // Mostrar los emojis según la respuesta
             if (answer === "Sí") {
