@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Amor</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #ffebf0;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #intro {
+            z-index: 2; /* Aparece sobre la cortina */
+        }
+
+        #question, #response {
+            display: none; /* Ocultamos inicialmente estas secciones */
+        }
+
+        h1, p {
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 4rem;
+        }
+
+        /* Estilo para el texto del intro */
+        #intro h1 {
+            color: white; /* Blanco para el intro */
+            font-size: 6rem;
+            letter-spacing: 10px;
+            text-transform: uppercase;
+        }
+
+        /* Estilo para el resto de los h1 */
+        #question h1, #response h1 {
+            color: #d63384; /* Rosa para las otras preguntas */
+        }
+
+        p {
+            font-size: 1.5rem;
+            color: #333;
+            margin-top: 1.1rem;
+            font-weight: bold;
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #d63384;
+            font-weight: bold;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #a62763;
+        }
+
+        .curtain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #d63384;
+            z-index: 1; /* Aparece debajo del texto */
+            transform-origin: top;
+        }
+
+        #second-response {
+            font-size: 1.5rem;
+            color: #d63384;
+            margin-top: 20px;
+            text-align: center;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            display: none; /* Ocultamos el mensaje por defecto */
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+
+            /* Nueva posición */
+            position: absolute;
+            transform: translateY(150%);
+            width: 35%;
+        }
+        .emoji {
+            position: absolute;
+            font-size: 2rem;
+            animation: float 2s forwards;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }.emoji {
+            position: absolute;
+            font-size: 2rem;
+            animation: float 2s forwards;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Cortina para transición -->
+    <div class="curtain" id="curtain"></div>
+
+    <!-- Introducción -->
+    <div class="container" id="intro">
+        <h1>Hola mi AMOR</h1>
+    </div>
+
+    <!-- Pregunta -->
+    <div class="container" id="question">
+        <h1>Te gustaría tener una DATE conmigo hoy?</h1>
+        <p>Tabla de charcutería, Vinito, Movies, Juegos, Encerrarnos</p>
+        <div class="buttons">
+            <button onclick="sendResponse('Sí')">Sí, me encantaría</button>
+            <button onclick="sendResponse('No')">No, ni de pedo</button>
+        </div>
+    </div>
+
+    <!-- Respuesta -->
+    <div class="container" id="response">
+        <h1 id="responseText"></h1>
+        <div class="buttons" id="second-button" style="display: none;">
+            <button onclick="sendAnotherResponse()">Sí, me encantaría</button>
+        </div>
+    </div>
+
+    <!-- Mensaje de respuesta adicional -->
+    <div id="second-response"></div>
+   
+    <script>
+        // Cortina y transiciones
+        window.onload = () => {
+            // Mostrar cortina después de 3 segundos
+            setTimeout(() => {
+                const curtain = document.getElementById("curtain");
+                gsap.to(curtain, { scaleY: 0, duration: 1.5, transformOrigin: "top", onComplete: () => {
+                    // Ocultar la introducción y mostrar la pregunta
+                    document.getElementById("intro").style.display = "none";
+                    document.getElementById("question").style.display = "block";
+                    gsap.fromTo("#question", { opacity: 0 }, { opacity: 1, duration: 0.3 });
+                }}); 
+            }, 3000);
+        };
+
+        // Manejar las respuestas
+        function sendResponse(answer) {
+            const question = document.getElementById("question");
+            const response = document.getElementById("response");
+            const responseText = document.getElementById("responseText");
+
+            // Mostrar los emojis según la respuesta
+            if (answer === "Sí") {
+                responseText.textContent = "¿Te parece si paso por ti a las 7-7:30? ❤️";
+               
+                document.getElementById("second-button").style.display = "block";  // Mostrar el segundo botón
+                document.getElementById('second-response').style.display = 'none';  // Asegurarse de que no aparezca antes de tiempo
+                showEmojis("❤️", "yes");
+            } else {
+                responseText.textContent = "Bueno, se intentó... 😢";
+            
+                showEmojis("😢", "no");
+            }
+
+            // Transición de pregunta a respuesta
+            gsap.to("#question", { opacity: 0, duration: 1, onComplete: () => {
+                question.style.display = "none";
+                response.style.display = "block";
+                gsap.fromTo("#response", { opacity: 0 }, { opacity: 1, duration: 1 });
+            }});
+
+           
+        }
+
+        function sendAnotherResponse() {
+            // Ocultar el botón
+            document.getElementById('second-button').style.display = 'none';
+
+            // Mostrar el mensaje adicional solo después de hacer clic en el segundo botón
+            const secondResponse = document.getElementById('second-response');
+            secondResponse.textContent = "¡Genial! ¡Nos vemos pronto!";
+            secondResponse.style.display = 'block';  // Mostrar el mensaje
+            gsap.to(secondResponse, { opacity: 1, duration: 0.5 }); // Desvanecer el texto
+        }
+
+        // Función para crear los emojis flotantes
+        function showEmojis(emoji, type) {
+            const container = document.body;
+            for (let i = 0; i < 10; i++) {
+                let emojiElement = document.createElement("div");
+                emojiElement.classList.add("emoji");
+                emojiElement.textContent = emoji;
+                emojiElement.style.left = `${Math.random() * 100}vw`;  // Posición horizontal aleatoria
+                emojiElement.style.animationDelay = `${Math.random() * 2}s`;  // Retardo aleatorio para la animación
+                container.appendChild(emojiElement);
+                
+                // Después de 2 segundos eliminar el emoji
+                setTimeout(() => {
+                    emojiElement.remove();
+                }, 2000);
+            }
+        }
+       
+    </script>
+</body>
+</html>
