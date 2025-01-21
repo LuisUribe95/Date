@@ -211,6 +211,7 @@
             const data = new FormData();
             data.append('answer', answer); // El valor de la respuesta (Sí o No)
 
+            
             fetch('https://script.google.com/macros/library/d/12AuaAKU46Zz-u1iDlC6HkTn8mTIGH_tIiE4xDm4Gxs4Fu-5e-cPnQuZ5/2', {
                     method: 'POST',
                     mode: 'no-cors',  // Usamos no-cors porque Google Apps Script no maneja CORS por defecto
