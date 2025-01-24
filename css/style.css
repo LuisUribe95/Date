@@ -443,6 +443,7 @@ p {
     position:absolute;
     z-index:99999999;
     box-sizing:border-box;
+    background-color: rebeccapurple;
 
     visibility:hidden; opacity:0; transition:opacity 0.8s;
 }
@@ -457,6 +458,7 @@ p {
 }
 .tooltip .text-content {
     padding:10px 20px;
+    color: white;
 }
 
 .tooltip .right i {
