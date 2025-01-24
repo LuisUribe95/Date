@@ -21,7 +21,10 @@
     <!-- Pregunta -->
     <div class="container" id="question">
         <h1>Te gustaría tener una DATE conmigo hoy?</h1>
-        <p>Tabla de charcutería, Vinito, Strongbow, Movies, Juegos, Encerrarnos</p>
+        <div class="opciones">
+            <button id="openPopup">Menú</button>
+           
+        </div>
         <div class="buttons">
             <button onclick="sendResponse('Sí')">Sí, me encantaría ❤️
                 <span></span>
@@ -54,6 +57,34 @@
     <!-- Mensaje de respuesta adicional -->
     <div id="second-response"></div>
    
+    <div class="popup" id="popup">
+        <div class="popup-content">
+            <span class="close-btn" id="closePopup">&times;</span>
+            <h2>Menú</h2>
+            <p>
+                El menú del día incluye:
+            </p>
+            <ul>
+                <li><strong>Tabla de charcutería:</strong> Jamón serrano, quesos, mermelada, galletas, aceitunas.</li>
+                <li><strong>Vino tinto:</strong> "Sangre de Cristo".</li>
+                <li><strong>5 Strongbow.</strong></li>
+                <li><strong>Juegos.</strong></li>
+                <li><strong>Películas.</strong></li>
+                <div class="tooltip">
+                    Ubicación
+                    <div class="right">
+                       
+                        <div class="text-content">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d43929.538347993024!2d-101.004295!3d25.388908!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86887393ce858197%3A0x73b5759336433eba!2sBaby%20blue%20Motel!5e1!3m2!1sen!2sus!4v1737648022527!5m2!1sen!2sus" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    </div>
+                </div>
+                
+            </ul>
+        </div>
+    </div>
+
+
     <script>
         // Cortina y transiciones
         window.onload = () => {
@@ -149,6 +180,29 @@
                 }, 2000);
             }
         }
+
+        // Obtener elementos del DOM
+const popup = document.getElementById('popup');
+const openPopupBtn = document.getElementById('openPopup');
+const closePopupBtn = document.getElementById('closePopup');
+
+// Abrir el popup
+openPopupBtn.addEventListener('click', () => {
+    popup.style.display = 'flex';
+});
+
+// Cerrar el popup
+closePopupBtn.addEventListener('click', () => {
+    popup.style.display = 'none';
+});
+
+// Cerrar el popup al hacer clic fuera de él
+window.addEventListener('click', (event) => {
+    if (event.target === popup) {
+        popup.style.display = 'none';
+    }
+});
+
        
     </script>
 </body>
