@@ -5,7 +5,7 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-color: #ffebf0;
+    background-color: #9a9ca4;
     overflow: hidden;
 }
 
@@ -15,6 +15,7 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    width: 100%;
 }
 
 
@@ -28,7 +29,7 @@ svg {
 }
 
 .svg-text {
-    font-size: 5rem;
+    font-size: 4rem;
     fill: none;
     stroke: #ffffff; /* Color del trazo */
     stroke-width: 2px;
@@ -44,21 +45,21 @@ svg {
         stroke-dashoffset: 0;
     }
 }
-
-
+.logos{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.logos img{
+    width: 10%;
+}
 
 #question,
 #response {
     display: none;
     /* Ocultamos inicialmente estas secciones */
     background: rgb(255 255 255 / 0%);
-    box-shadow: 0 8px 31px 16px rgba(31, 38, 135, 0.37);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    border-radius: 10px;
-    border: 1px solid rgb(255 15 15 / 0%);
-    border: 1px solid rgba(255, 255, 255, 0.275);
-    padding: 1rem;
+    
 }
 
 h1,
@@ -84,7 +85,7 @@ h1 {
 /* Estilo para el resto de los h1 */
 #question h1,
 #response h1 {
-    color: #d63384;
+    color: #f3f7f9;
     text-transform: uppercase;
     text-shadow: -4px 1px 4px black;
     /* Rosa para las otras preguntas */
@@ -118,7 +119,7 @@ p {
 }
 
 button {
-    background-color: #d63384;
+    background-color: #b2c7f1;
     font-weight: bold;
     color: white;
     border: none;
