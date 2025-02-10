@@ -144,6 +144,7 @@ body {
     box-sizing: border-box;
     transition: transform .6s; /* Animation */
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.9);
+    cursor: pointer;
   }
   button:hover{
     transform: scale(1.5);
