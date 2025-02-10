@@ -4,106 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Super Bowl LIX</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <!-- Cortina para transición -->
-    <div class="curtain" id="curtain"></div>
-
-    <!-- Introducción -->
-    <div class="container" id="intro">
-        <svg width="600" height="150" viewBox="0 0 600 150" xmlns="http://www.w3.org/2000/svg">
-            <text x="50%" y="50%" text-anchor="middle" class="svg-text">Super Bowl LIX</text>
-        </svg>
-    </div>
-
     <!-- Pregunta -->
-    <div class="container" id="question">
-        <h1>Te gustaría ver el SUPERBOWL conmigo?</h1>
-        <div class="logos">
-            <img src="https://logodownload.org/wp-content/uploads/2020/09/kansas-city-chiefs-logo.png" alt="">
-            <h3>VS</h3>
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpZHgjFs411g8rGvlbtuc_AQzqrmTTek6rVA&s" alt="">
-        </div>
-        <div class="opciones">
-            <button id="openPopup">Menú</button>
-        </div>
-        <div class="buttons">
-            <button onclick="sendResponse('Sí')">Sí, Jalo ❤️
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <button onclick="sendResponse('No')">No, ni de pedo 🤢
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </div>
 
-    <!-- Respuesta -->
-    <div class="container" id="response">
-        <h1 id="responseText"></h1>
-        <div class="buttons" id="second-button" style="display: none;">
-            <button onclick="sendAnotherResponse()">Sí, me encantaría
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+    <div class="bgoverlay">
+        <div class="container" id="question">
+          <span class="ico">
+            <span class="ico2"></span>
+            <span class="title">Click Me</span>
+          </span>
+          <div class="endtext">
+            <span class="close" title="Restart"><i class="fa fa-times"></i></span>
+            <h1>Te amo</h1>
+            <h2>Eres la razón de mi felicidad... me hiciste sentir tan seguro contigo... al principio no tenia idea de que serias tan importante para mí, pero ahora te convertiste en la razón de mi vida... gracias por venir a mi vida</h2>
+            <p>
+            <h2> Will u be my valentine?</h2>
+            <div class="buttons">
+                <button onclick="sendResponse('Sí')">Sí❤️
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <button onclick="sendResponse('No')">No🤢
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+          </div>
+          
         </div>
-    </div>
+      </div>
 
-    <!-- Mensaje de respuesta adicional -->
-    <div id="second-response"></div>
-   
-    <div class="popup" id="popup">
-        <div class="popup-content">
-            <span class="close-btn" id="closePopup">&times;</span>
-            <h2>Menú</h2>
-           
-            <ul>
-                <li><strong>Tabla de charcutería:</strong> Jamón serrano, quesos, mermelada, aceitunas.</li>
-                <li><strong>Vino tinto:</strong> "Sangre de Cristo".</li>
-                <li><strong>Strongbow.</strong></li>
-                <div class="tooltip">
-                    Ubicación
-                    <div class="right">
-                       
-                        <div class="text-content">
-                           <h3>Baby blue Motel 🫣🔒</h3>
-                        </div>
-                    </div>
-                </div>
-                
-            </ul>
-        </div>
-    </div>
-
+ 
+      <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
     <script>
-        // Cortina y transiciones
-        window.onload = () => {
-            // Mostrar cortina después de 3 segundos
-            setTimeout(() => {
-                const curtain = document.getElementById("curtain");
-                gsap.to(curtain, {
-            scaleY: 0,
-            duration: 1.5,
-            transformOrigin: "top",
-            onComplete: () => {
-                document.getElementById("intro").style.display = "none";
-                document.getElementById("question").style.display = "block";
-                gsap.fromTo("#question", { opacity: 0 }, { opacity: 1, duration: 0.3 });
-            },
-        });
-    },4000); // Ajusta el tiempo según la duración de la animación del texto
-        };
-
+$(document).ready(function () {
+    $(".title").click(function () {
+      $(".container").addClass("open");
+    });
+  
+    $(".close").click(function () {
+      $(".container").removeClass("open");
+    });
+  });
             // Manejar las respuestas
             async function sendResponse(answer) {
                 const question = document.getElementById("question");
@@ -150,58 +101,6 @@
                     gsap.fromTo("#response", { opacity: 0 }, { opacity: 1, duration: 1 });
                 }});
     }
-
-
-        function sendAnotherResponse() {
-            // Ocultar el botón
-            document.getElementById('second-button').style.display = 'none';
-
-            // Mostrar el mensaje adicional solo después de hacer clic en el segundo botón
-            const secondResponse = document.getElementById('second-response');
-            secondResponse.textContent = "¡Genial! ¡Nos vemos pronto!";
-            secondResponse.style.display = 'block';  // Mostrar el mensaje
-            gsap.to(secondResponse, { opacity: 1, duration: 0.5 }); // Desvanecer el texto
-        }
-
-        // Función para crear los emojis flotantes
-        function showEmojis(emoji, type) {
-            const container = document.body;
-            for (let i = 0; i < 10; i++) {
-                let emojiElement = document.createElement("div");
-                emojiElement.classList.add("emoji");
-                emojiElement.textContent = emoji;
-                emojiElement.style.left = `${Math.random() * 100}vw`;  // Posición horizontal aleatoria
-                emojiElement.style.animationDelay = `${Math.random() * 2}s`;  // Retardo aleatorio para la animación
-                container.appendChild(emojiElement);
-                
-                // Después de 2 segundos eliminar el emoji
-                setTimeout(() => {
-                    emojiElement.remove();
-                }, 2000);
-            }
-        }
-
-        // Obtener elementos del DOM
-const popup = document.getElementById('popup');
-const openPopupBtn = document.getElementById('openPopup');
-const closePopupBtn = document.getElementById('closePopup');
-
-// Abrir el popup
-openPopupBtn.addEventListener('click', () => {
-    popup.style.display = 'flex';
-});
-
-// Cerrar el popup
-closePopupBtn.addEventListener('click', () => {
-    popup.style.display = 'none';
-});
-
-// Cerrar el popup al hacer clic fuera de él
-window.addEventListener('click', (event) => {
-    if (event.target === popup) {
-        popup.style.display = 'none';
-    }
-});
 
        
     </script>
