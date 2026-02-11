@@ -1,108 +1,271 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Valentine day</title>
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Press heart ❤️</title>
+  <meta name="description" content="Haz clic en el corazón para liberar frases de amor. Optimizado para un rendimiento fluido en móviles." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <!-- Cortina para transición -->
-    <!-- Pregunta -->
+  <div class="scene" id="scene" data-bg="stars">
 
-    <div class="bgoverlay">
-        <div class="container" id="question">
-          <span class="ico">
-            <span class="ico2"></span>
-            <span class="title">Click</span>
-          </span>
-          <div class="endtext">
-            <span class="close" title="Restart"><i class="fa fa-times"></i></span>
-            <h1>Kazandra I LOVE U</h1>
-            <h2>Eres la razón de mi felicidad... me hiciste sentir tan seguro contigo... al principio no tenía idea de que serias tan importante para mí, pero ahora te convertiste en la razón de mi vida... gracias por venir a mi vida</h2>
-            <p>
-            <h2> Will u be my valentine?</h2>
-            <div class="buttons">
-                <button onclick="sendResponse('Sí')">Sí❤️
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-                <button onclick="sendResponse('No')">No🤢
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-            </div>
-          </div>
-          
+    <div class="heart-container">
+      <button class="heart-btn" id="heartBtn">
+        <span class="heart">
+          <svg viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="g" cx="50%" cy="40%" r="70%">
+                <stop offset="0%" stop-color="#ff5f7a" />
+                <stop offset="40%" stop-color="#ff2b4f" />
+                <stop offset="100%" stop-color="#c91534" />
+              </radialGradient>
+            </defs>
+            <path class="core" d="M100,162.2C17.7,99.5,6,77.5,6,52.3C6,27.1,27.1,6,52.3,6c15.4,0,30.8,7.7,40,20.6l7.7,9.6l7.7-9.6 c9.2-12.9,24.6-20.6,40-20.6c25.2,0,46.3,21.1,46.3,46.3c0,25.2-11.7,47.2-94,109.9L100,162.2L100,162.2z" fill="url(#g)"/>
+            <path class="shine" d="M73 47c-12 0-23 6-29 16-2 3-1 7 2 9 3 2 7 1 9-2 4-7 12-11 20-11 4 0 7-3 7-7s-3-5-9-5Z"/>
+            <text x="100" y="80" text-anchor="middle" alignment-baseline="middle" font-size="20">
+                Click me
+            </text>
+          </svg>
+        </span>
+        
+      </button>
+    </div>
+
+    <!-- Reproductor de música -->
+    <div class="music-player" id="musicPlayer">
+      <button class="play-pause-btn" id="playPauseBtn">
+        <svg id="playIcon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+        <svg id="pauseIcon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display: none;">
+          <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+        </svg>
+      </button>
+      <div class="progress-container">
+        <div class="song-info">Te dedico esta canción ❤️</div>
+        <div class="progress-bar" id="progressBar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="time-display">
+          <span id="currentTime">0:00</span>
+          <span id="totalTime">0:00</span>
         </div>
       </div>
+    </div>
 
- 
-      <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  </div>
 
-    <script>
-$(document).ready(function () {
-    $(".title").click(function () {
-      $(".container").addClass("open");
-    });
-  
-    $(".close").click(function () {
-      $(".container").removeClass("open");
-    });
-  });
-            // Manejar las respuestas
-            async function sendResponse(answer) {
-                const question = document.getElementById("question");
-                const response = document.getElementById("response");
-                const responseText = document.getElementById("responseText");
-                const data = { response: answer };
+  <audio id="audioPlayer" loop preload="auto">
+    <source src="https://www.dropbox.com/scl/fi/528c9o7dle6hbj9mkb089/Caf-Quijano-Me-enamoras-con-todo-Videoclip-Oficial-Directo.mp3?rlkey=atz4knf1m22aim339wj2axu7e&st=o0w9krst&dl=1" type="audio/mpeg">
+  </audio>
 
-                try {
-                    const res = await fetch('https://date-flame.vercel.app/api/submit-response', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(data),
-                    });
+  <script>
+    const PHRASES = [
+      "Eres mi mejor aventura ✨ 💖", "Contigo todo es magia 🌙 💖", 
+      "Mi refugio favorito eres tú 🏡 💖", "Tu sonrisa ilumina mi vida 🌟 💖",
+      "Eres mi canción infinita 🎶 💖", "Mi destino eres tú 💫 💖",
+      "Contigo, el mundo es más brillante 💖",
+      "Eres mi hogar y mi aventura 🗺️ 💖", "Contigo el tiempo se detiene ⏰ 💖"
+    ];
 
-                    if (res.ok) {
-                        const responseData = await res.json(); // Obtener la respuesta del servidor
-                        console.log(responseData); // Verificar qué respuesta devuelve el servidor
-                        //alert('Respuesta registrada correctamente');
-                    } else {
-                        //alert('Hubo un error al registrar la respuesta');
-                    }
-                } catch (error) {
-                    console.error(error); // Para depuración
-                    alert('Error de conexión');
-                }
+    const scene = document.getElementById('scene');
+    const heartBtn = document.getElementById('heartBtn');
+    const musicPlayer = document.getElementById('musicPlayer');
+    const audioPlayer = document.getElementById('audioPlayer');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const progressBar = document.getElementById('progressBar');
+    const progressFill = document.getElementById('progressFill');
+    const currentTimeEl = document.getElementById('currentTime');
+    const totalTimeEl = document.getElementById('totalTime');
+    
+    const playIcon = document.getElementById('playIcon');
+    const pauseIcon = document.getElementById('pauseIcon');
+    
+    let isProcessing = false;
+    let firstClick = true;
+    let isPlaying = false;
 
-                // Mostrar los emojis según la respuesta
-                if (answer === "Sí") {
-                    responseText.textContent = "¿Te parece si paso por ti a las 3-3:30? ❤️";
-                    document.getElementById("second-button").style.display = "block";  // Mostrar el segundo botón
-                    document.getElementById('second-response').style.display = 'none';  // Asegurarse de que no aparezca antes de tiempo
-                    showEmojis("❤️", "yes");
-                } else {
-                    responseText.textContent = "Bueno, se intentó... 😢";
-                    showEmojis("😢", "no");
-                }
+    function triggerRelease(e) {
+      if (e.type === 'keydown' && e.key !== 'Enter' && e.key !== ' ') {
+        return;
+      }
+      e.preventDefault();
+      
+      if (isProcessing) return;
+      isProcessing = true;
 
-                // Transición de pregunta a respuesta
-                gsap.to("#question", { opacity: 0, duration: 1, onComplete: () => {
-                    question.style.display = "none";
-                    response.style.display = "block";
-                    gsap.fromTo("#response", { opacity: 0 }, { opacity: 1, duration: 1 });
-                }});
+      // Activar música en el primer clic
+      if (firstClick) {
+        activateMusic();
+        firstClick = false;
+      }
+
+      releasePhrase();
+
+      setTimeout(() => {
+        isProcessing = false;
+      }, 300);
     }
 
-       
-    </script>
+    function activateMusic() {
+      musicPlayer.classList.add('active');
+      audioPlayer.play()
+        .then(() => {
+          isPlaying = true;
+          showPauseIcon();
+        })
+        .catch(e => {
+          console.log('Error al reproducir audio:', e);
+        });
+    }
+
+    function showPlayIcon() {
+      playIcon.style.display = 'block';
+      pauseIcon.style.display = 'none';
+    }
+
+    function showPauseIcon() {
+      playIcon.style.display = 'none';
+      pauseIcon.style.display = 'block';
+    }
+
+    function togglePlayPause() {
+      if (isPlaying) {
+        audioPlayer.pause();
+        showPlayIcon();
+        isPlaying = false;
+      } else {
+        audioPlayer.play()
+          .then(() => {
+            showPauseIcon();
+            isPlaying = true;
+          })
+          .catch(e => {
+            console.log('Error al reproducir audio:', e);
+          });
+      }
+    }
+
+    function updateProgress() {
+      if (audioPlayer.duration) {
+        const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+        progressFill.style.width = progress + '%';
+        
+        currentTimeEl.textContent = formatTime(audioPlayer.currentTime);
+        totalTimeEl.textContent = formatTime(audioPlayer.duration);
+      }
+    }
+
+    function formatTime(seconds) {
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      return mins + ':' + (secs < 10 ? '0' : '') + secs;
+    }
+
+    function seekAudio(e) {
+  const rect = progressBar.getBoundingClientRect();
+  const clickX = e.clientX - rect.left;
+  
+  // Verificamos que la duración sea un número válido antes de calcular
+  if (isFinite(audioPlayer.duration)) {
+    const newTime = (clickX / rect.width) * audioPlayer.duration;
+    audioPlayer.currentTime = newTime;
+  } else {
+    console.warn("El audio aún no ha cargado su duración.");
+  }
+}
+
+    heartBtn.addEventListener('click', triggerRelease);
+    heartBtn.addEventListener('keydown', triggerRelease);
+    playPauseBtn.addEventListener('click', togglePlayPause);
+    progressBar.addEventListener('click', seekAudio);
+    audioPlayer.addEventListener('timeupdate', updateProgress);
+    audioPlayer.addEventListener('loadedmetadata', updateProgress);
+
+    function releasePhrase() {
+      heartBtn.classList.add('clicked');
+      setTimeout(() => heartBtn.classList.remove('clicked'), 700);
+    
+      createParticlesBurst();
+      createPhrase();
+    }
+
+    function createPhrase() {
+      const phraseText = PHRASES[Math.floor(Math.random() * PHRASES.length)];
+      const el = document.createElement('div');
+      el.className = 'phrase shooting';
+      el.textContent = phraseText;
+
+      const heartRect = heartBtn.getBoundingClientRect();
+      const sceneRect = scene.getBoundingClientRect();
+      
+      const startX = heartRect.left + heartRect.width / 2 - sceneRect.left;
+      const startY = heartRect.top + heartRect.height / 2 - sceneRect.top;
+
+      el.style.left = startX + 'px';
+      el.style.top = startY + 'px';
+
+      const angle = Math.random() * 120 - 150;
+      const shootForce = rand(150, 230);
+      const shootX = Math.cos(angle * Math.PI / 180) * shootForce;
+      const shootY = Math.sin(angle * Math.PI / 180) * shootForce;
+
+      const fallDistance = rand(250, 450);
+      const horizontalDrift = rand(-120, 120);
+      const finalX = shootX + horizontalDrift;
+      const finalY = shootY + fallDistance;
+
+      const initialRotation = rand(-20, 20);
+      const finalRotation = initialRotation + rand(-40, 40);
+      const duration = rand(4.5, 6.5);
+
+      el.style.setProperty('--shoot-x', shootX + 'px');
+      el.style.setProperty('--shoot-y', shootY + 'px');
+      el.style.setProperty('--final-x', finalX + 'px');
+      el.style.setProperty('--final-y', finalY + 'px');
+      el.style.setProperty('--rotation', initialRotation + 'deg');
+      el.style.setProperty('--final-rotation', finalRotation + 'deg');
+      el.style.setProperty('--duration', duration + 's');
+      
+      scene.appendChild(el);
+      el.addEventListener('animationend', () => el.remove(), { once: true });
+    }
+
+    function createParticlesBurst() {
+      const heartRect = heartBtn.getBoundingClientRect();
+      const sceneRect = scene.getBoundingClientRect();
+      const centerX = heartRect.left + heartRect.width / 2 - sceneRect.left;
+      const centerY = heartRect.top + heartRect.height / 2 - sceneRect.top;
+
+      const particleCount = rand(10, 15);
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle burst';
+        
+        particle.style.left = centerX + 'px';
+        particle.style.top = centerY + 'px';
+        
+        const angle = Math.random() * 360;
+        const distance = rand(50, 90);
+        const x = Math.cos(angle * Math.PI / 180) * distance;
+        const y = Math.sin(angle * Math.PI / 180) * distance;
+        
+        particle.style.setProperty('--particle-x', x + 'px');
+        particle.style.setProperty('--particle-y', y + 'px');
+        
+        scene.appendChild(particle);
+        particle.addEventListener('animationend', () => particle.remove(), { once: true });
+      }
+    }
+
+    function rand(min, max) { 
+      return Math.random() * (max - min) + min; 
+    }
+  </script>
 </body>
 </html>
